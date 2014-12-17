@@ -7,7 +7,7 @@
  * Controller of the timesheetApp
  */
 angular.module('timesheetApp')
-  .controller('MainCtrl', function ($scope, $timeout) {
+  .controller('MainCtrl', function ($scope, $timeout, $window) {
   	var now = new Date(),
   		$calendar = $('#calendar');
   		$scope.renderingType = 0;
@@ -48,11 +48,46 @@ angular.module('timesheetApp')
 		  		visible: true
 		  	}];
 
-    function createTimesheet() {
-    	new window.Timesheet('timesheet', 2009, 2015, [
-		  ['2014', '12/2015', 'A freaking awesome time', 'lorem'],
-		]);
-    }
+		  	
+    function initTimesheet() {
+    	var events = [
+			{dates: [new Date(2011, 2, 31)],
+				title: "2011 Season Opener",
+				section: 0, //optional
+				attrs: {} // optional
+			},
+			{dates: [new Date(2012, 1, 29)], title: "Spring Training Begins", section: 2},
+			{dates: [new Date(2012, 3, 9), new Date(2012, 3, 11)], title: "Atlanta Braves @ Houston Astros", section: 1}
+			];
+		// sections are represented by a background color over part of the timeline. They are optional
+		var sections = [
+			{dates: [new Date(2011, 2, 31), new Date(2011, 9, 28)],
+			 title: "2011 MLB Season",
+			 section: 0,
+			 attrs: {fill: "#d4e3fd"}
+			},
+			{dates: [new Date(2012, 2, 28), new Date(2012, 9, 3)],
+			 title: "2012 MLB Regular Season",
+			 section: 1,
+			 attrs: {fill: "#d4e3fd"}
+			},
+			{dates: [new Date(2012, 1, 29), new Date(2012, 3, 4)],
+			 title: "Spring Training",
+			 section: 2,
+			 attrs: {fill: "#eaf0fa"}
+			},
+			{dates: [new Date(2012, 9, 4), new Date(2012, 9, 31)],
+			 title: "2012 MLB Playoffs",
+			 section: 3,
+			 attrs: {fill: "#eaf0fa"}
+			}
+		];
+
+		// actually creating the timeline. Also nessary
+		new $window.Chronoline(document.getElementById("timesheet"), events,
+    		{animated: true, sections: sections});
+    	}
+    
 
 	function getRandomId() {
 		return Math.floor((Math.random() * 1000) + 1);
@@ -189,8 +224,10 @@ angular.module('timesheetApp')
 
 	$timeout(function () {
 		initFullcalendar();
+		
+		initTimesheet();
+
 		addMetacardsColor();
-		createTimesheet();
 
 		$('.datepick').each(function(){
 		    $(this).datepicker();
