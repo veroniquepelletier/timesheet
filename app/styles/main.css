@@ -1,0 +1,16 @@
+.menu {
+  position: fixed;
+}
+
+.calendar-container {
+	width: 660px;
+	height: 100%;
+	right: 400px;
+	float: right;
+}
+
+.thumbnails {
+	overflow-y: auto;
+	height: 800px;
+	width: 260px;
+}
