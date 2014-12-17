@@ -1,0 +1,81 @@
+
+<div class='menu'>
+  <!-- Filters and Class -->
+
+   <div class='row'>
+    <div class="pull-right">
+      <div class="btn-group">
+        <button class="btn">Classement</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>Date Croissant</li>
+          <li>Date Decroissant</li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button class="btn">Filtre</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <ul class="thumbnails">
+    <li class="span3" ng-repeat='metacard in metacards'>
+      <div class="thumbnail" id='{{metacard.id}}'>
+        <img src="http://placehold.it/260x180" alt="">
+        <div class='row'>
+          <div class="pull-right">
+            <button class='btn' ng-click='toggleVisibility(metacard)'>
+              <i ng-class="{'icon-eye-open': metacard.visible,
+                        'icon-eye-close': !metacard.visible}"></i>
+            </button>
+          </div>
+          <div class="pull-right">
+            <button class='btn' ng-click='remove(metacard)'>
+              <i class='icon-remove'></i>
+            </button>
+          </div>
+        </div>
+        <h5>type {{metacard.title}}</h5>
+
+        Display from: <input type="text" class="datepick" value="{{metacard.start  | date:'short'}}"/>
+        Display until: <input type="text" class="datepick" value="{{metacard.end  | date:'short'}}"/>
+        <br>
+        <button class="btn" ng-click='goto(metacard.start)'>goto start</button>
+        <button class="btn" ng-click='goto(metacard.end)'>goto end</button>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class='calendar-container'>
+  <button class="btn" ng-click='changeRendering(0)'>Calendar</button>
+  <button class="btn" ng-click='changeRendering(1)'>Dates</button>
+  <div id='calendar' ng-show='renderingType === 0'></div>
+  <div id='dates' ng-show='renderingType === 1'>
+    <div id="timesheet"></div>
+  </div>
+</div>
+<!-- hour modal -->
+<div class="modal" id="myModal" ng-show='showModal'>
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" ng-click='onCloseModal()'>×</a>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>Change time?</p>
+    Display from: <input type="text" id='fromValue' value="{{metacardResized.start  | date:'h:mm:ss'}}"/><br>
+    Display until: <input type="text" id='untilValue'value="{{metacardResized.end  | date:'h:mm:ss'}}"/>
+  </div>
+  <div class="modal-footer">
+    <div class="btn" ng-click='onCloseModal()'>Cancel</div>
+    <div class="btn" ng-click='onCloseModal(metacardResized)'>Save</div>
+  </div>
+</div>

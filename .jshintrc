@@ -1,0 +1,24 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "newcap": true,
+    "noarg": true,
+    "sub": true,
+    "undef": true,
+    "unused": true,
+    "boss": true,
+    "eqnull": true,
+    "globals": {
+        "angular": true,
+        "require": true,
+        "exports": true,
+        "module": true,
+        "appConfig": true,
+        "console": true,
+        "$": true
+    },
+    "indent": false,
+    "browser": true,
+    "newcap": false
+}
